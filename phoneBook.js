@@ -3,14 +3,16 @@
 var phoneBook = [];
 
 module.exports.add = function add(name, phone, email) {
+    var telephoneRegex = /\+|\s|-|\(|\)/g;
     if (validPhone(phone) && validMail(email)) {
         var tmp = {
             name: name,
-            phone: phone,
+            phone: phone.replace(telephoneRegex, ''),
             email: email
+
         };
+        phoneBook.push(tmp);
     }
-    phoneBook.push(tmp);
 };
 
 function validPhone(phone) {
@@ -24,16 +26,16 @@ function validMail(email) {
 }
 
 module.exports.find = function find(query) {
-    if (query == null) {
+    if (!querry) {
         for (var i = 0; i < phoneBook.length; i++) {
             console.log(phoneBook[i].name + ', ' + phoneBook[i].phone + ', ' + phoneBook[i].email);
         }
     } else {
         var telephoneRegex = /\+|\s|-|\(|\)/g;
         for (var i = 0; i < phoneBook.length; i++) {
-            if (phoneBook[i].name.indexOf(query) != -1 ||
-                phoneBook[i].phone.replace(telephoneRegex, '').indexOf(query) != -1 ||
-                phoneBook[i].email.indexOf(query) != -1) {
+            if (phoneBook[i].name.indexOf(querry.replace(telephoneRegex, '')) != -1 ||
+                phoneBook[i].phone.indexOf(querry.replace(telephoneRegex, '')) != -1 ||
+                phoneBook[i].email.indexOf(querry.replace(telephoneRegex, '')) != -1) {
                 console.log(phoneBook[i].name +
                     ', ' + phoneBook[i].phone +
                     ', ' + phoneBook[i].email);
@@ -44,21 +46,17 @@ module.exports.find = function find(query) {
 
 module.exports.remove = function remove(query) {
     var amount = 0;
-    var oldBook = phoneBook;
-    phoneBook = [];
     var telephoneRegex = /\+|\s|-|\(|\)/g;
-    for (var i = 0; oldBook[0] != null; i++) {
-        console.log(oldBook[0]);
-        if (oldBook[0].name.indexOf(query) != -1 ||
-            oldBook[0].phone.replace(telephoneRegex, '').indexOf(query) != -1 ||
-            oldBook[0].email.indexOf(query) != -1) {
-            oldBook.shift();
+    var i = 0;
+    while (phoneBook[i] != null) {
+        if (phoneBook[i].name.indexOf(querry.replace(telephoneRegex, '')) != -1 ||
+            phoneBook[i].phone.indexOf(querry.replace(telephoneRegex, '')) != -1 ||
+            phoneBook[i].email.indexOf(querry.replace(telephoneRegex, '')) != -1) {
+            phoneBook.splice(i, 1);
             amount++;
         } else {
-            if (oldBook[0] != null) {
-                phoneBook[i - amount] = oldBook.shift();
-            }
+            i++;
         }
     }
-    console.log('Recods deleted: ' + amount);
+    console.log('Records deleted: ' + amount);
 };
