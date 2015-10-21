@@ -26,16 +26,16 @@ function validMail(email) {
 }
 
 module.exports.find = function find(query) {
-    if (!querry) {
+    if (!query) {
         for (var i = 0; i < phoneBook.length; i++) {
             console.log(phoneBook[i].name + ', ' + phoneBook[i].phone + ', ' + phoneBook[i].email);
         }
     } else {
         var telephoneRegex = /\+|\s|-|\(|\)/g;
         for (var i = 0; i < phoneBook.length; i++) {
-            if (phoneBook[i].name.indexOf(querry.replace(telephoneRegex, '')) != -1 ||
-                phoneBook[i].phone.indexOf(querry.replace(telephoneRegex, '')) != -1 ||
-                phoneBook[i].email.indexOf(querry.replace(telephoneRegex, '')) != -1) {
+            if (phoneBook[i].name.indexOf(query.replace(telephoneRegex, '')) != -1 ||
+                phoneBook[i].phone.indexOf(query.replace(telephoneRegex, '')) != -1 ||
+                phoneBook[i].email.indexOf(query.replace(telephoneRegex, '')) != -1) {
                 console.log(phoneBook[i].name +
                     ', ' + phoneBook[i].phone +
                     ', ' + phoneBook[i].email);
@@ -49,9 +49,9 @@ module.exports.remove = function remove(query) {
     var telephoneRegex = /\+|\s|-|\(|\)/g;
     var i = 0;
     while (phoneBook[i] != null) {
-        if (phoneBook[i].name.indexOf(querry.replace(telephoneRegex, '')) != -1 ||
-            phoneBook[i].phone.indexOf(querry.replace(telephoneRegex, '')) != -1 ||
-            phoneBook[i].email.indexOf(querry.replace(telephoneRegex, '')) != -1) {
+        if (phoneBook[i].name.indexOf(query.replace(telephoneRegex, '')) != -1 ||
+            phoneBook[i].phone.indexOf(query.replace(telephoneRegex, '')) != -1 ||
+            phoneBook[i].email.indexOf(query.replace(telephoneRegex, '')) != -1) {
             phoneBook.splice(i, 1);
             amount++;
         } else {
